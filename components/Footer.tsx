@@ -6,12 +6,10 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const REMIX_IDEAS = [
-    "to try different hairstyles.",
-    "to turn your pet into a cartoon character.",
-    "to create a fantasy version of yourself.",
-    "to design a superhero based on your photo.",
-    "to place yourself in famous historical events.",
-    "to generate a custom video game avatar.",
+    "Build an app.",
+    "Rebrand your site.",
+    "AI consultation.",
+    "Manage remote teams."
 ];
 
 const Footer = () => {
@@ -35,12 +33,12 @@ const Footer = () => {
                     <p>
                         Created by{' '}
                         <a
-                            href="https://x.com/ammaar"
+                            href="https://x.com/masonjames"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-neutral-400 hover:text-yellow-400 transition-colors duration-200"
                         >
-                            @ammaar
+                            @masonjames
                         </a>
                     </p>
                 </div>
@@ -48,7 +46,7 @@ const Footer = () => {
                 {/* Right Side */}
                 <div className="flex-grow flex justify-end items-center gap-4 sm:gap-6">
                     <div className="hidden lg:flex items-center gap-2 text-neutral-400 text-right min-w-0">
-                        <span className="flex-shrink-0">Remix this app...</span>
+                        <span className="flex-shrink-0">Reach out to...</span>
                         <div className="relative w-64 h-5">
                             <AnimatePresence mode="wait">
                                 <motion.span
@@ -67,20 +65,20 @@ const Footer = () => {
 
                     <div className="flex items-center gap-4 sm:gap-6">
                         <a
-                            href="https://aistudio.google.com/apps"
+                            href="https://masonjames.com"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="font-permanent-marker text-sm sm:text-base text-center text-black bg-yellow-400 py-2 px-4 rounded-sm transform transition-transform duration-200 hover:scale-105 hover:-rotate-2 hover:bg-yellow-300 shadow-[1px_1px_0px_1px_rgba(0,0,0,0.2)] whitespace-nowrap"
                         >
-                            Apps on AI Studio
+                            Check out my website!
                         </a>
                         <a
-                            href="https://gemini.google.com/"
+                            href="https://mvp.masonjames.com/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="font-permanent-marker text-sm sm:text-base text-center text-white bg-white/10 backdrop-blur-sm border border-white/50 py-2 px-4 rounded-sm transform transition-transform duration-200 hover:scale-105 hover:rotate-2 hover:bg-white hover:text-black whitespace-nowrap"
                         >
-                            Chat with Gemini
+                            Turn Your Idea into an App in 28 days!
                         </a>
                     </div>
                 </div>
