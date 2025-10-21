@@ -51,6 +51,7 @@ const Placeholder = () => (
 const PolaroidCard: React.FC<PolaroidCardProps> = ({ imageUrl, caption, status, error, dragConstraintsRef, onShake, onDownload, isMobile }) => {
     const [isDeveloped, setIsDeveloped] = useState(false);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
+    const imageRef = useRef<HTMLImageElement | null>(null);
     const lastShakeTime = useRef(0);
     const lastVelocity = useRef({ x: 0, y: 0 });
 
@@ -59,10 +60,20 @@ const PolaroidCard: React.FC<PolaroidCardProps> = ({ imageUrl, caption, status, 
         if (status === 'pending') {
             setIsDeveloped(false);
             setIsImageLoaded(false);
+            return;
         }
-        if (status === 'done' && imageUrl) {
+
+        if (status === 'done') {
             setIsDeveloped(false);
             setIsImageLoaded(false);
+
+            // Handle images that load synchronously (e.g., data URLs or cached assets)
+            const img = imageRef.current;
+            if (img && imageUrl) {
+                if (img.complete && img.naturalWidth > 0) {
+                    setIsImageLoaded(true);
+                }
+            }
         }
     }, [imageUrl, status]);
 
@@ -158,6 +169,7 @@ const PolaroidCard: React.FC<PolaroidCardProps> = ({ imageUrl, caption, status, 
                         {/* The Image - fades in and color corrects */}
                         <img
                             key={imageUrl}
+                            ref={imageRef}
                             src={imageUrl}
                             alt={caption}
                             onLoad={() => setIsImageLoaded(true)}
