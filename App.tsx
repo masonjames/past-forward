@@ -8,6 +8,7 @@ import { generateDecadeImage } from './services/geminiService';
 import PolaroidCard from './components/PolaroidCard';
 import { createAlbumPage } from './lib/albumUtils';
 import Footer from './components/Footer';
+import { triggerDownloadFromDataUrl } from './lib/download';
 
 const DECADES = ['1950s', '1960s', '1970s', '1980s', '1990s', '2000s'];
 
@@ -166,15 +167,15 @@ function App() {
         setAppState('idle');
     };
 
-    const handleDownloadIndividualImage = (decade: string) => {
+    const handleDownloadIndividualImage = async (decade: string) => {
         const image = generatedImages[decade];
         if (image?.status === 'done' && image.url) {
-            const link = document.createElement('a');
-            link.href = image.url;
-            link.download = `past-forward-${decade}.jpg`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            try {
+                await triggerDownloadFromDataUrl(image.url, `past-forward-${decade}.jpg`);
+            } catch (error) {
+                console.error(`Failed to download image for ${decade}:`, error);
+                alert('Sorry, we could not download that photo automatically. Long-press the image and choose "Save" instead.');
+            }
         }
     };
 
@@ -195,12 +196,7 @@ function App() {
 
             const albumDataUrl = await createAlbumPage(imageData);
 
-            const link = document.createElement('a');
-            link.href = albumDataUrl;
-            link.download = 'past-forward-album.jpg';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            await triggerDownloadFromDataUrl(albumDataUrl, 'past-forward-album.jpg');
 
         } catch (error) {
             console.error("Failed to create or download album:", error);

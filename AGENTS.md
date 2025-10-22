@@ -20,9 +20,12 @@
 - Optional GCS volume mount from earlier revisions is no longer required; the app serves from `/workspace/dist`.
 
 ## Local Workflow Tips
-- Start API: `npm run dev:server` (defaults to 8080).
+- Start API: `npm run dev:server` (loads `.env` automatically via `node --env-file=.env`; defaults to 8080).
 - Start Vite: `npm run dev`; proxy forwards `/api/*` to backend (configurable via `VITE_API_PROXY_TARGET`).
 - Production smoke test: `npm run build && npm start`, visit http://localhost:8080.
+
+## Platform Quirks & Fallbacks
+- Individual photo download now generates a `Blob` and attempts `navigator.share`; iOS Safari falls back to opening the image in a new tab if automatic download is blocked.
 
 ## Task Tracking with Beads (bd)
 - Initialized at `.beads/past-forward.db`; prefix `past-forward` (first issue is `past-forward-1`).
